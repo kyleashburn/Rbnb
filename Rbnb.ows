@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='utf-8'?>
+<scheme description="" title="" version="2.0">
+	<nodes>
+		<node id="0" name="CSV File Import" position="(105.0, 59.0)" project_name="Orange3" qualified_name="Orange.widgets.data.owcsvimport.OWCSVFileImport" title="Lond Data" version="" />
+		<node id="1" name="CSV File Import" position="(113.0, 587.0)" project_name="Orange3" qualified_name="Orange.widgets.data.owcsvimport.OWCSVFileImport" title="HK Data" version="" />
+		<node id="2" name="Select Columns" position="(246.0, 61.0)" project_name="Orange3" qualified_name="Orange.widgets.data.owselectcolumns.OWSelectAttributes" title="Select Columns" version="" />
+		<node id="3" name="Select Columns" position="(253.0, 586.0)" project_name="Orange3" qualified_name="Orange.widgets.data.owselectcolumns.OWSelectAttributes" title="Select Columns (1)" version="" />
+		<node id="4" name="Naive Bayes" position="(392.0, 52.0)" project_name="Orange3" qualified_name="Orange.widgets.model.ownaivebayes.OWNaiveBayes" title="Naive Bayes" version="" />
+		<node id="5" name="SVM" position="(388.0, 149.0)" project_name="Orange3" qualified_name="Orange.widgets.model.owsvm.OWSVM" title="SVM" version="" />
+		<node id="6" name="Test and Score" position="(728.0, 59.0)" project_name="Orange3" qualified_name="Orange.widgets.evaluate.owtestandscore.OWTestAndScore" title="Test and Score" version="" />
+		<node id="7" name="Logistic Regression" position="(393.0, 243.0)" project_name="Orange3" qualified_name="Orange.widgets.model.owlogisticregression.OWLogisticRegression" title="Logistic Regression" version="" />
+		<node id="8" name="Tree" position="(392.0, 340.0)" project_name="Orange3" qualified_name="Orange.widgets.model.owtree.OWTreeLearner" title="Tree" version="" />
+		<node id="9" name="Tree Viewer" position="(727.0, 327.0)" project_name="Orange3" qualified_name="Orange.widgets.visualize.owtreeviewer.OWTreeGraph" title="Tree Viewer" version="" />
+	</nodes>
+	<links>
+		<link enabled="true" id="0" sink_channel="Data" sink_node_id="2" source_channel="Data" source_node_id="0" />
+		<link enabled="true" id="1" sink_channel="Data" sink_node_id="3" source_channel="Data" source_node_id="1" />
+		<link enabled="true" id="2" sink_channel="Data" sink_node_id="4" source_channel="Data" source_node_id="2" />
+		<link enabled="true" id="3" sink_channel="Data" sink_node_id="5" source_channel="Data" source_node_id="2" />
+		<link enabled="true" id="4" sink_channel="Learner" sink_node_id="6" source_channel="Learner" source_node_id="5" />
+		<link enabled="true" id="5" sink_channel="Learner" sink_node_id="6" source_channel="Learner" source_node_id="4" />
+		<link enabled="true" id="6" sink_channel="Data" sink_node_id="6" source_channel="Data" source_node_id="2" />
+		<link enabled="true" id="7" sink_channel="Test Data" sink_node_id="6" source_channel="Data" source_node_id="3" />
+		<link enabled="true" id="8" sink_channel="Data" sink_node_id="7" source_channel="Data" source_node_id="2" />
+		<link enabled="true" id="9" sink_channel="Learner" sink_node_id="6" source_channel="Learner" source_node_id="7" />
+		<link enabled="true" id="10" sink_channel="Data" sink_node_id="8" source_channel="Data" source_node_id="2" />
+		<link enabled="true" id="11" sink_channel="Learner" sink_node_id="6" source_channel="Learner" source_node_id="8" />
+		<link enabled="true" id="12" sink_channel="Tree" sink_node_id="9" source_channel="Model" source_node_id="8" />
+	</links>
+	<annotations />
+	<thumbnail />
+	<node_properties>
+		<properties format="literal" node_id="0">{'_session_items': [('C:/Users/ashbu/Desktop/Final Project/lond_list_reduced.csv', {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 1, 'value': 'Auto'}, {'start': 1, 'stop': 5, 'value': 'Numeric'}, {'start': 5, 'stop': 7, 'value': 'Categorical'}, {'start': 7, 'stop': 8, 'value': 'Numeric'}, {'start': 8, 'stop': 10, 'value': 'Categorical'}, {'start': 10, 'stop': 12, 'value': 'Numeric'}, {'start': 12, 'stop': 13, 'value': 'Categorical'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''}), ('C:/Users/ashbu/Desktop/Carolina Data Challenge/Health/OpenAQDurham.csv', {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 11, 'value': 'Auto'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''})], 'controlAreaVisible': True, 'dialog_state': {'directory': 'C:/Users/ashbu/Desktop/Final Project', 'filter': 'Text - comma separated (*.csv, *)'}, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\x18\x00\x00\x00\xfa\x00\x00\x03?\x00\x00\x02W\x00\x00\x02\x1e\x00\x00\x01\x17\x00\x00\x039\x00\x00\x02Q\x00\x00\x00\x00\x00\x00\x00\x00\x05X', '__version__': 1}</properties>
+		<properties format="literal" node_id="1">{'_session_items': [('C:/Users/ashbu/Desktop/Final Project/hk_list_reduced.csv', {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 1, 'value': 'Auto'}, {'start': 1, 'stop': 5, 'value': 'Numeric'}, {'start': 5, 'stop': 7, 'value': 'Categorical'}, {'start': 7, 'stop': 8, 'value': 'Numeric'}, {'start': 8, 'stop': 10, 'value': 'Categorical'}, {'start': 10, 'stop': 12, 'value': 'Numeric'}, {'start': 12, 'stop': 13, 'value': 'Categorical'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''}), ('C:/Users/ashbu/Desktop/Final Project/lond_list_reduced.csv', {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 1, 'value': 'Auto'}, {'start': 1, 'stop': 5, 'value': 'Numeric'}, {'start': 5, 'stop': 7, 'value': 'Categorical'}, {'start': 7, 'stop': 8, 'value': 'Numeric'}, {'start': 8, 'stop': 10, 'value': 'Categorical'}, {'start': 10, 'stop': 12, 'value': 'Numeric'}, {'start': 12, 'stop': 13, 'value': 'Categorical'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''}), ('C:/Users/ashbu/Desktop/Carolina Data Challenge/Health/OpenAQDurham.csv', {'encoding': 'utf-8', 'delimiter': ',', 'quotechar': '"', 'doublequote': True, 'skipinitialspace': True, 'quoting': 0, 'columntypes': [{'start': 0, 'stop': 11, 'value': 'Auto'}], 'rowspec': [{'start': 0, 'stop': 1, 'value': 'Header'}], 'decimal_separator': '.', 'group_separator': ''})], 'controlAreaVisible': True, 'dialog_state': {'directory': 'C:/Users/ashbu/Desktop/Final Project', 'filter': 'Text - comma separated (*.csv, *)'}, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\x18\x00\x00\x00\xfa\x00\x00\x03?\x00\x00\x02W\x00\x00\x02\x1e\x00\x00\x01\x17\x00\x00\x039\x00\x00\x02Q\x00\x00\x00\x00\x00\x00\x00\x00\x05X', '__version__': 1}</properties>
+		<properties format="pickle" node_id="2">gAN9cQAoWAsAAABhdXRvX2NvbW1pdHEBiFgSAAAAY29udHJvbEFyZWFWaXNpYmxlcQKIWBMAAABz
+YXZlZFdpZGdldEdlb21ldHJ5cQNDMgHZ0MsAAgAAAAABegAAAGsAAAPdAAAC5QAAAYAAAACIAAAD
+1wAAAt8AAAAAAAAAAAVYcQRYEgAAAHVzZV9pbnB1dF9mZWF0dXJlc3EFiVgLAAAAX192ZXJzaW9u
+X19xBksBWBAAAABjb250ZXh0X3NldHRpbmdzcQddcQhjb3Jhbmdld2lkZ2V0LnNldHRpbmdzCkNv
+bnRleHQKcQkpgXEKfXELKFgGAAAAdmFsdWVzcQx9cQ0oWBEAAABkb21haW5fcm9sZV9oaW50c3EO
+fXEPKFgFAAAAcHJpY2VxEEsChnERWAkAAABhdHRyaWJ1dGVxEksAhnETWAQAAABiZWRzcRRLAoZx
+FWgSSwGGcRZYCAAAAGJlZHJvb21zcRdLAoZxGGgSSwKGcRlYCQAAAGJhdGhyb29tc3EaSwKGcRto
+EksDhnEcWAkAAAByb29tX3R5cGVxHUsBhnEeaBJLBIZxH1gNAAAAcHJvcGVydHlfdHlwZXEgSwGG
+cSFoEksFhnEiWAwAAABhY2NvbW1vZGF0ZXNxI0sChnEkaBJLBoZxJVgSAAAAaG9zdF9yZXNwb25z
+ZV90aW1lcSZLAYZxJ2gSSweGcShYFAAAAGhvc3RfYWNjZXB0YW5jZV9yYXRlcSlLAYZxKmgSSwiG
+cStYDwAAAHRvdGFsX2FtZW5pdGllc3EsSwKGcS1oEksJhnEuWBAAAABwcmljZV9wZXJfcGVyc29u
+cS9LAoZxMGgSSwqGcTFYCQAAAGlzX3J2XzEwMHEySwGGcTNYBQAAAGNsYXNzcTRLAIZxNVgCAAAA
+aWRxNksChnE3WAQAAABtZXRhcThLAIZxOXVK/v///4ZxOmgGSwF1WAoAAABhdHRyaWJ1dGVzcTt9
+cTwoaDZLAmgQSwJoFEsCaBdLAmgaSwJoHUsBaCBLAWgjSwJoJksBaClLAWgsSwJoL0sCaDJLAXVY
+BQAAAG1ldGFzcT19cT51YmF1Lg==
+</properties>
+		<properties format="pickle" node_id="3">gAN9cQAoWAsAAABhdXRvX2NvbW1pdHEBiFgSAAAAY29udHJvbEFyZWFWaXNpYmxlcQKIWBMAAABz
+YXZlZFdpZGdldEdlb21ldHJ5cQNDMgHZ0MsAAgAAAAABegAAAGsAAAPdAAAC5QAAAYAAAACIAAAD
+1wAAAt8AAAAAAAAAAAVYcQRYEgAAAHVzZV9pbnB1dF9mZWF0dXJlc3EFiVgLAAAAX192ZXJzaW9u
+X19xBksBWBAAAABjb250ZXh0X3NldHRpbmdzcQddcQhjb3Jhbmdld2lkZ2V0LnNldHRpbmdzCkNv
+bnRleHQKcQkpgXEKfXELKFgGAAAAdmFsdWVzcQx9cQ0oWBEAAABkb21haW5fcm9sZV9oaW50c3EO
+fXEPKFgFAAAAcHJpY2VxEEsChnERWAkAAABhdHRyaWJ1dGVxEksAhnETWAQAAABiZWRzcRRLAoZx
+FWgSSwGGcRZYCAAAAGJlZHJvb21zcRdLAoZxGGgSSwKGcRlYCQAAAGJhdGhyb29tc3EaSwKGcRto
+EksDhnEcWAkAAAByb29tX3R5cGVxHUsBhnEeaBJLBIZxH1gNAAAAcHJvcGVydHlfdHlwZXEgSwGG
+cSFoEksFhnEiWAwAAABhY2NvbW1vZGF0ZXNxI0sChnEkaBJLBoZxJVgSAAAAaG9zdF9yZXNwb25z
+ZV90aW1lcSZLAYZxJ2gSSweGcShYFAAAAGhvc3RfYWNjZXB0YW5jZV9yYXRlcSlLAYZxKmgSSwiG
+cStYDwAAAHRvdGFsX2FtZW5pdGllc3EsSwKGcS1oEksJhnEuWBAAAABwcmljZV9wZXJfcGVyc29u
+cS9LAoZxMGgSSwqGcTFYCQAAAGlzX3J2XzEwMHEySwGGcTNYBQAAAGNsYXNzcTRLAIZxNVgCAAAA
+aWRxNksChnE3WAQAAABtZXRhcThLAIZxOXVK/v///4ZxOmgGSwF1WAoAAABhdHRyaWJ1dGVzcTt9
+cTwoaDZLAmgQSwJoFEsCaBdLAmgaSwJoHUsBaCBLAWgjSwJoJksBaClLAWgsSwJoL0sCaDJLAXVY
+BQAAAG1ldGFzcT19cT51YmF1Lg==
+</properties>
+		<properties format="literal" node_id="4">{'auto_apply': True, 'controlAreaVisible': True, 'learner_name': '', 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02M\x00\x00\x01X\x00\x00\x03\n\x00\x00\x01\xf9\x00\x00\x02S\x00\x00\x01u\x00\x00\x03\x04\x00\x00\x01\xf3\x00\x00\x00\x00\x00\x00\x00\x00\x05X', '__version__': 1}</properties>
+		<properties format="literal" node_id="5">{'C': 1.0, 'auto_apply': True, 'coef0': 0.0, 'controlAreaVisible': True, 'degree': 3, 'epsilon': 0.1, 'gamma': 0.0, 'kernel_type': 2, 'learner_name': '', 'limit_iter': True, 'max_iter': 100, 'nu': 0.5, 'nu_C': 1.0, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\x19\x00\x00\x00\xa6\x00\x00\x03&gt;\x00\x00\x02\xaa\x00\x00\x02\x1f\x00\x00\x00\xc3\x00\x00\x038\x00\x00\x02\xa4\x00\x00\x00\x00\x00\x00\x00\x00\x05X', 'svm_type': 0, 'tol': 0.001, '__version__': 1}</properties>
+		<properties format="pickle" node_id="6">gAN9cQAoWBQAAABjb21wYXJpc29uX2NyaXRlcmlvbnEBSwBYEgAAAGNvbnRyb2xBcmVhVmlzaWJs
+ZXECiFgNAAAAY3Zfc3RyYXRpZmllZHEDiFgHAAAAbl9mb2xkc3EESwNYCQAAAG5fcmVwZWF0c3EF
+SwNYCgAAAHJlc2FtcGxpbmdxBksFWAQAAAByb3BlcQdHP7mZmZmZmZpYCwAAAHNhbXBsZV9zaXpl
+cQhLCVgTAAAAc2F2ZWRXaWRnZXRHZW9tZXRyeXEJQzIB2dDLAAIAAP////r////6AAAFXQAAA24A
+AAGCAAAA1wAABI0AAAKvAAAAAAIAAAAFWHEKWBIAAABzaHVmZmxlX3N0cmF0aWZpZWRxC4hYCAAA
+AHVzZV9yb3BlcQyJWAsAAABzY29yZV90YWJsZXENfXEOWAwAAABzaG93bl9zY29yZXNxD2NidWls
+dGlucwpzZXQKcRBdcREoWAIAAABSMnESWAQAAABSTVNFcRNYBgAAAFJlY2FsbHEUWAMAAABNQUVx
+FVgDAAAAQVVDcRZYAgAAAEYxcRdYAgAAAENBcRhYAwAAAE1TRXEZWAkAAABQcmVjaXNpb25xGmWF
+cRtScRxzWAsAAABfX3ZlcnNpb25fX3EdSwNYEAAAAGNvbnRleHRfc2V0dGluZ3NxHl1xH2NvcmFu
+Z2V3aWRnZXQuc2V0dGluZ3MKQ29udGV4dApxICmBcSF9cSIoWAYAAAB2YWx1ZXNxI31xJChYDwAA
+AGNsYXNzX3NlbGVjdGlvbnElWBYAAAAoQXZlcmFnZSBvdmVyIGNsYXNzZXMpcSZK/////4ZxJ1gM
+AAAAZm9sZF9mZWF0dXJlcShOSv7///+GcSlYFQAAAGZvbGRfZmVhdHVyZV9zZWxlY3RlZHEqiUr+
+////hnEraA19cSxoHUsDdVgKAAAAYXR0cmlidXRlc3EtKFgFAAAAcHJpY2VxLksChnEvWAQAAABi
+ZWRzcTBLAoZxMVgIAAAAYmVkcm9vbXNxMksChnEzWAkAAABiYXRocm9vbXNxNEsChnE1WAkAAABy
+b29tX3R5cGVxNksBhnE3WA0AAABwcm9wZXJ0eV90eXBlcThLAYZxOVgMAAAAYWNjb21tb2RhdGVz
+cTpLAoZxO1gSAAAAaG9zdF9yZXNwb25zZV90aW1lcTxLAYZxPVgUAAAAaG9zdF9hY2NlcHRhbmNl
+X3JhdGVxPksBhnE/WA8AAAB0b3RhbF9hbWVuaXRpZXNxQEsChnFBWBAAAABwcmljZV9wZXJfcGVy
+c29ucUJLAoZxQ3RxRFgFAAAAbWV0YXNxRVgCAAAAaWRxRksChnFHhXFIWAoAAABjbGFzc192YXJz
+cUlYCQAAAGlzX3J2XzEwMHFKSwGGcUuFcUx1YmF1Lg==
+</properties>
+		<properties format="literal" node_id="7">{'C_index': 61, 'auto_apply': False, 'controlAreaVisible': True, 'learner_name': '', 'penalty_type': 1, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02=\x00\x00\x01\x1e\x00\x00\x03\x1a\x00\x00\x022\x00\x00\x02C\x00\x00\x01;\x00\x00\x03\x14\x00\x00\x02,\x00\x00\x00\x00\x00\x00\x00\x00\x05X', '__version__': 1}</properties>
+		<properties format="literal" node_id="8">{'auto_apply': False, 'binary_trees': False, 'controlAreaVisible': True, 'learner_name': '', 'limit_depth': True, 'limit_majority': True, 'limit_min_internal': True, 'limit_min_leaf': True, 'max_depth': 9, 'min_internal': 5, 'min_leaf': 5, 'savedWidgetGeometry': b'\x01\xd9\xd0\xcb\x00\x02\x00\x00\x00\x00\x02\xfa\x00\x00\x01v\x00\x00\x04&lt;\x00\x00\x02\xd3\x00\x00\x03\x00\x00\x00\x01\x93\x00\x00\x046\x00\x00\x02\xcd\x00\x00\x00\x00\x00\x00\x00\x00\x05X', 'sufficient_majority': 95, '__version__': 1}</properties>
+		<properties format="pickle" node_id="9">gAN9cQAoWBIAAABjb250cm9sQXJlYVZpc2libGVxAYhYEQAAAGxpbmVfd2lkdGhfbWV0aG9kcQJL
+AFgOAAAAbWF4X25vZGVfd2lkdGhxA0szWA4AAABtYXhfdHJlZV9kZXB0aHEESwBYEQAAAHJlZ3Jl
+c3Npb25fY29sb3JzcQVLAFgTAAAAc2F2ZWRXaWRnZXRHZW9tZXRyeXEGQzIB2dDLAAIAAAAAACUA
+AABTAAAFKwAAAy4AAAArAAAAcAAABSUAAAMoAAAAAAAAAAAFWHEHWAQAAAB6b29tcQhLAVgLAAAA
+X192ZXJzaW9uX19xCUsBWBAAAABjb250ZXh0X3NldHRpbmdzcQpdcQtjb3Jhbmdld2lkZ2V0LnNl
+dHRpbmdzCkNvbnRleHQKcQwpgXENfXEOKFgGAAAAdmFsdWVzcQ99cRAoWBIAAAB0YXJnZXRfY2xh
+c3NfaW5kZXhxEUsAaAlLAXVYBwAAAGNsYXNzZXNxEmNPcmFuZ2UuZGF0YS52YXJpYWJsZQpUdXBs
+ZUxpc3QKcRNYAQAAADBxFFgBAAAAMXEVhnEWhXEXgXEYdWJhdS4=
+</properties>
+	</node_properties>
+	<session_state>
+		<window_groups />
+	</session_state>
+</scheme>

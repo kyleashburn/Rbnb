@@ -1,0 +1,188 @@
+# starting by exploring what the shape of the data is
+
+# library for what I'm doing
+ 
+
+# bringing in the listings data
+# 7200 listings raw for HK and 72900 raw for London
+hk_listings = read.csv("listings_hk.csv")
+lond_listings = read.csv("listings_lond.csv")
+
+
+# finding the percentage of empty values (nulls, empty strings, etc) in the current df
+hk_na_df = data.frame(colSums(is.na(hk_listings)/length(hk_listings$id)))
+
+lond_na_df = data.frame(colSums(is.na(lond_listings)/length(lond_listings$id)))
+
+# multiplying by 100
+hk_na_df = hk_na_df * 100
+lond_na_df = lond_na_df * 100
+
+# rounding it off
+hk_na_df = round(hk_na_df, 2)
+lond_na_df = round(lond_na_df, 2)
+
+
+# renaming for cleanliness
+names(hk_na_df)[1] = "% empty"
+names(lond_na_df)[1] = "% empty"
+
+# making a df with the datatypes
+hk_type_df = data.frame(sapply(hk_listings, class))
+lond_type_df = data.frame(sapply(lond_listings, class))
+
+# transposing the dfs
+hk_type_df = t(hk_type_df)
+hk_na_df = t(hk_na_df)
+lond_type_df = t(lond_type_df)
+lond_na_df = t(lond_na_df)
+
+
+# merging the two dfs together
+hk_about = rbind(hk_na_df, hk_type_df)
+lond_about = rbind(lond_na_df, lond_type_df)
+
+# looking at the % na for the two cities, it looks like we'll lose 
+# ~30% of the data for london and ~47% of the data for HK right off the bat
+
+# data design changed between scrapes...just great...but I fixed it
+# converting the price columns
+hk_listings$price = as.integer(gsub("[$,]", "", hk_listings$price))
+lond_listings$price = as.integer(gsub("[$,]", "", lond_listings$price))
+
+# a bit of data cleaning to fix the durn changes the guy made to the data -> I'm proud of my code here; it's convoluted but it works!
+hk_listings$bathrooms <- ifelse(str_detect(hk_listings$bathrooms_text, "half") == TRUE, .5, str_extract_all(hk_listings$bathrooms_text,"\\(?[0-9,.]+\\)?"))
+lond_listings$bathrooms <- ifelse(str_detect(lond_listings$bathrooms_text, "half") == TRUE, .5, str_extract_all(lond_listings$bathrooms_text,"\\(?[0-9,.]+\\)?")
+
+# converting those columns to numerics
+hk_listings$bathrooms <- as.numeric(hk_listings$bathrooms)
+lond_listings$bathrooms <- as.numeric(lond_listings$bathrooms)
+
+# adding calculated columns
+
+# calculated column for the listings with a perfect score
+# b/c let's be real, rating distribution ain't normal anyway
+hk_listings$is_rv_100 <- ifelse(hk_listings$review_scores_rating == 100, 1, 0)
+lond_listings$is_rv_100 <- ifelse(lond_listings$review_scores_rating == 100, 1, 0)
+
+#calculated column for a rough count of the amenities
+hk_listings$total_amenities <- ifelse(nchar(hk_listings$amenities)>2, str_count(hk_listings$amenities, ",")+1,0)
+lond_listings$total_amenities <- ifelse(nchar(lond_listings$amenities)>2, str_count(lond_listings$amenities, ",")+1,0)
+
+# calculated column for a rough idea of price per person
+hk_listings$price_per_person <- hk_listings$price/hk_listings$accommodates
+lond_listings$price_per_person <- lond_listings$price/lond_listings$accommodates
+
+
+# dropping columns that won't be informative (likely not anyways)
+# dropping columns that have too many empty values (& aren't critical for my analysis)
+# i.e. retaining only those that I think are important right now -> those that the host has a degree of control over
+
+hk_list_reduced = hk_listings[c("id", "price", "beds", "bedrooms", "bathrooms", "room_type", "property_type", "accommodates",
+"host_response_time", "host_acceptance_rate", "total_amenities","price_per_person","is_rv_100")]
+
+lond_list_reduced = lond_listings[c("id", "price", "beds", "bedrooms", "bathrooms", "room_type", "property_type", "accommodates",
+"host_response_time", "host_acceptance_rate", "total_amenities","price_per_person","is_rv_100")]
+
+
+# removing rows where there are empty values & praying I have enough data left 
+hk_list_reduced <- subset(hk_list_reduced, rowSums(is.na(hk_list_reduced))==0)
+lond_list_reduced <- subset(lond_list_reduced, rowSums(is.na(lond_list_reduced))==0)
+
+# STILL NEED TO UPDATE DOWN HERE
+
+
+# visualizing my data for the hong kong dataset
+hk_categorical = c("room_type", "property_type", "host_response_time", "host_acceptance_rate")
+
+for (colname in hk_categorical) {
+  
+  
+    temp <- subset(hk_list_reduced, is_rv_100 == 1) 
+    temp <- temp %>% 
+      group_by(is_rv_100, temp[,colname]) %>% 
+      summarise(density = n()/nrow(.))
+    colnames(temp)[2] <- colname
+      
+    temp1 <- subset(hk_list_reduced, is_rv_100 == 0) 
+    temp1 <- temp1 %>% 
+      group_by(is_rv_100, temp1[,colname]) %>% 
+      summarise(density = n()/nrow(.))
+    colnames(temp1)[2] <- colname
+      
+    temp2 <- rbind(temp, temp1)
+    
+    plot <- ggplot(data=temp2, aes(x=temp2[[colname]], y=density, fill=as.factor(is_rv_100))) + 
+      geom_bar(position = 'dodge', stat='identity') + labs(fill = "is_rv_100", x = colname, 
+            title = paste(colname, " relative density grouped by is_rv_100")) +
+            theme(axis.text.x = element_text(angle = 90, hjust = 1))
+    
+    print(plot)
+    
+  }
+
+hk_continuous = c("price", "price_per_person","bathrooms", "beds","bedrooms", "total_amenities")
+
+for (colname in hk_continuous) {
+  
+    plot <- ggplot(data=hk_list_reduced, aes(x=as.factor(is_rv_100), y=hk_list_reduced[[colname]])) + 
+      geom_boxplot(fill="lightblue") + labs(x = "is_rv_100", y = colname,
+            title = paste(colname, " grouped by is_rv_100")) +
+            theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+            scale_y_continuous(limits = quantile(hk_list_reduced[[colname]], c(0.1, 0.9)))
+    
+    print(plot)
+    
+  }
+
+#visualizing my data for my london dataset
+
+lond_categorical = c("room_type", "property_type", "host_response_time", "host_acceptance_rate")
+
+for (colname in lond_categorical) {
+  
+  
+    temp <- subset(lond_list_reduced, is_rv_100 == 1) 
+    temp <- temp %>% 
+      group_by(is_rv_100, temp[,colname]) %>% 
+      summarise(density = n()/nrow(.))
+    colnames(temp)[2] <- colname
+      
+    temp1 <- subset(lond_list_reduced, is_rv_100 == 0) 
+    temp1 <- temp1 %>% 
+      group_by(is_rv_100, temp1[,colname]) %>% 
+      summarise(density = n()/nrow(.))
+    colnames(temp1)[2] <- colname
+      
+    temp2 <- rbind(temp, temp1)
+    
+    plot <- ggplot(data=temp2, aes(x=temp2[[colname]], y=density, fill=as.factor(is_rv_100))) + 
+      geom_bar(position = 'dodge', stat='identity') + labs(fill = "is_rv_100", x = colname, 
+            title = paste(colname, " relative density grouped by is_rv_100")) +
+            theme(axis.text.x = element_text(angle = 90, hjust = 1))
+    
+    print(plot)
+    
+  }
+
+lond_continuous = c("price", "price_per_person","bathrooms", "beds","bedrooms", "total_amenities")
+
+for (colname in lond_continuous) {
+  
+    plot <- ggplot(data=lond_list_reduced, aes(x=as.factor(is_rv_100), y=lond_list_reduced[[colname]])) + 
+      geom_boxplot(fill="lightblue") + labs(x = "is_rv_100", y = colname,
+            title = paste(colname, " grouped by is_rv_100")) +
+            theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+            scale_y_continuous(limits = quantile(lond_list_reduced[[colname]], c(0.1, 0.9)))
+    
+    print(plot)
+    
+  }
+
+
+
+#ending by exporting my reduced listings for hk and london to csvs
+write.csv(hk_list_reduced,"hk_list_reduced.csv", row.names = FALSE)
+write.csv(lond_list_reduced,"lond_list_reduced.csv", row.names = FALSE)
+
+
